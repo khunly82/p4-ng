@@ -5,4 +5,5 @@ export interface  GameModel {
   redPlayerName: string|null;
   yellowPlayerName: string|null;
   versusAI: boolean;
+  grid?: number[][];
 }

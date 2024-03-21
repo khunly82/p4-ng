@@ -1,0 +1,11 @@
+:host {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    .card {
+        background: rgba(255,255,255,0.2);
+        border-radius: 15px;
+        padding: 20px 40px;
+    }
+}
