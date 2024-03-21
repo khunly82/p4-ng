@@ -1,0 +1,11 @@
+<div id="grid">
+  @for (column of game?.grid; track $index) {
+    <div class="column" (click)="play($index)">
+      @for (cell of column; track $index) {
+        <div class="cell">
+          <div *ngIf="cell" class="coin" [ngClass]="{ red: cell === 1, yellow: cell === -1 }"></div>
+        </div>
+      }
+    </div>
+  }
+</div>

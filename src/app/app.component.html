@@ -1,2 +1,20 @@
-<router-outlet></router-outlet>
+<header class="px-4">
+  <div></div>
+  <div class="text-center">Puissance 4</div>
+  <div class="text-right">
+    @if(session()?.username) {
+      <p-button (onClick)="userMenu.toggle($event)" [link]="true">
+        <app-status [status]="status()"></app-status>
+        <span class="ml-2">{{ session()?.username }}</span>
+      </p-button>
+      <p-tieredMenu #userMenu [model]="userMenuItems" [popup]="true"></p-tieredMenu>
+    }
+  </div>
+</header>
+<main class="p-2">
+  <router-outlet></router-outlet>
+</main>
 <p-toast></p-toast>
+<footer class="px-2">
+  &copy; BStorm - 2024
+</footer>

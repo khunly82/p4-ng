@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Session } from '../store/session.state';
+import { Session } from '../../features/auth/state/session.state';
 import { map, tap } from 'rxjs';
 
 export const isLoggedGuard: CanActivateFn = (route, state) => {

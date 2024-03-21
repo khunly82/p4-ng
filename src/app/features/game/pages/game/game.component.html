@@ -1,0 +1,28 @@
+<div id="games">
+  <p-button class="my-4" [disabled]="!!game()" label="Créer une partie" (onClick)="createGameOpen = true"></p-button>
+  <p-dialog [(visible)]="createGameOpen"
+            [style]="{width: '50vw'}" [breakpoints]="{ '920px': '70vw' }"
+            header="Créer une partie"
+  >
+    <app-create-game-form (onClose)="createGameOpen = false"></app-create-game-form>
+  </p-dialog>
+  <p-table [value]="games() ?? []">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Rouge</th>
+        <th class="text-center">VS</th>
+        <th class="text-right">Jaune</th>
+      </tr>
+    </ng-template>
+    <ng-template let-game pTemplate="body">
+      <tr appGameRow [game]="game"></tr>
+    </ng-template>
+  </p-table>
+</div>
+<div id="currentGame">
+  @if (game()) {
+    <div class="game-header mb-3" appGameRow [game]="game()"></div>
+    <app-grid [game]="game()"></app-grid>
+  }
+</div>
+

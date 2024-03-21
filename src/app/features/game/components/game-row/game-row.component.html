@@ -1,0 +1,15 @@
+@if(game) {
+  <td>
+    <app-game-row-player [player]="{ id: game.redPlayerId, name: game.redPlayerName }"
+                         (onClick)="joinGame()"
+                         [versusAI]="game.versusAI"
+                         [opponentPlayerId]="game.yellowPlayerId"></app-game-row-player>
+  </td>
+  <td class="text-center"></td>
+  <td class="text-right">
+    <app-game-row-player [player]="{ id: game.yellowPlayerId, name: game.yellowPlayerName }"
+                         (onClick)="joinGame()"
+                         [versusAI]="game.versusAI"
+                         [opponentPlayerId]="game.redPlayerId"></app-game-row-player>
+  </td>
+}

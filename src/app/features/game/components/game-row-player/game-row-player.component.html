@@ -1,0 +1,9 @@
+@if (player.id) {
+  {{ player.name }}
+} @else if (versusAI) {
+  Ordi
+} @else if (opponentPlayerId === currentPlayerId()) {
+  En attente
+} @else {
+  <p-button label="Rejoindre" (onClick)="click()"></p-button>
+}

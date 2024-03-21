@@ -1,13 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { AuthService } from '../../services/auth.service';
+import {CommonModule} from '@angular/common';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Router, RouterLink} from '@angular/router';
+import {MessageService} from 'primeng/api';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import {PasswordModule} from 'primeng/password';
+import {FloatLabelModule} from 'primeng/floatlabel';
+import {AuthService} from '../../services/auth.service';
 
 
 @Component({
@@ -42,17 +42,17 @@ export class LoginComponent {
   }
 
   submit() {
-    if(this.form.invalid) {
+    if (this.form.invalid) {
       return;
     }
     this.isLoading = true;
     this.authService.login(this.form.value).subscribe({
       next: ({username}) => {
-        this.messageService.add({ severity: 'info', summary: `Welcome ${username}`});
+        this.messageService.add({severity: 'info', summary: `Welcome ${username}`});
         this.router.navigate(['/game']);
       },
       error: (error) => {
-        this.messageService.add({ severity: 'error', summary: error.error });
+        this.messageService.add({severity: 'error', summary: error.error});
         this.isLoading = false;
       },
     })

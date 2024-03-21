@@ -1,17 +1,18 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { MessageService } from 'primeng/api';
+import {ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {provideRouter} from '@angular/router';
+import {provideAnimations} from '@angular/platform-browser/animations';
+import {MessageService} from 'primeng/api';
 
-import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
-import { ActionReducer, provideStore } from '@ngrx/store';
-import { sessionReducer } from './store/session.state';
-import { localStorageSync } from 'ngrx-store-localstorage';
+import {routes} from './app.routes';
+import {provideHttpClient} from '@angular/common/http';
+import {ActionReducer, provideStore} from '@ngrx/store';
+import {sessionReducer} from './features/auth/state/session.state';
+import {localStorageSync} from 'ngrx-store-localstorage';
+import {gamesReducer} from './features/game/state/game.state';
 
 export function localStorageSyncReducers(reducers: ActionReducer<any>) {
   return localStorageSync({
-    keys: ['session'], 
+    keys: ['session'],
     rehydrate: true
   })(reducers)
 }
@@ -22,10 +23,15 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(),
     MessageService,
-    provideStore({ 
-      session: sessionReducer 
+    provideStore({
+      session: sessionReducer,
+      games: gamesReducer,
     }, {
-      metaReducers: [localStorageSyncReducers]
+      metaReducers: [localStorageSyncReducers],
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      }
     })
-]
+  ]
 };

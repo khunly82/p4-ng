@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="createGame()">
+  <div class="py-4">
+    <p-radioButton formControlName="color"
+                   [value]="1"
+                   label="Rouge"
+                   class="mr-4"
+    ></p-radioButton>
+    <p-radioButton formControlName="color"
+                   [value]="-1"
+                   label="Jaune"
+    ></p-radioButton>
+  </div>
+  <div class="py-4">
+    <p-checkbox [binary]="true" label="Jouer contre l'ordi" formControlName="versusAI"></p-checkbox>
+  </div>
+  <div class="py-4 flex justify-content-end">
+    <p-button type="submit" label="Créer"></p-button>
+  </div>
+</form>

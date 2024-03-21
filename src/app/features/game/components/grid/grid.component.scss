@@ -1,0 +1,74 @@
+
+@keyframes fall {
+  0% {
+    transform: translateY(-300px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+#grid {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 7 / 6;
+  box-sizing: content-box;
+
+  > .column {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    flex: 1 1 0;
+    box-sizing: content-box;
+
+    > .cell {
+      flex: 1 1 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      box-sizing: content-box;
+      position: relative;
+
+      &::after {
+        content: '';
+        height: 100%;
+        width: 100%;
+        background-size: 100% 100%;
+        background: radial-gradient(circle, transparent 60%, var(--blue-500) 60%, var(--blue-500) 100%) no-repeat center center;
+        position: absolute;
+      }
+
+      > .coin {
+        animation-name: fall;
+        animation-duration: 0.5s;
+        animation-timing-function: cubic-bezier(1, 1.5, .5, .75);
+        animation-fill-mode: forwards;
+        position: absolute;
+        height: 90%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        z-index: -1;
+
+        &.red {
+          background-color: var(--red-500);
+        }
+
+        &.yellow {
+          background-color: var(--yellow-500);
+        }
+      }
+    }
+  }
+}

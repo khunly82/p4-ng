@@ -1,0 +1,31 @@
+<div class="card">
+  <h2>Se connecter</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="my-4">
+      <p-floatLabel>
+        <input class="w-full" formControlName="username" pInputText type="text">
+        <label>Username</label>
+      </p-floatLabel>
+    </div>
+    <div class="my-4">
+      <p-floatLabel>
+        <input pPassword class="w-full" formControlName="password">
+        <label>Mot de passe</label>
+      </p-floatLabel>
+    </div>
+    <div class="my-4 flex justify-content-end">
+      <p-button type="submit"
+                label="Envoyer"
+                icon="pi pi-send"
+                iconPos="right"
+                [disabled]="form.invalid || isLoading"
+                [loading]="isLoading"
+                severity="info"></p-button>
+    </div>
+  </form>
+  <div class="flex justify-content-center">
+    <p-button routerLink="/register"
+              label="Pas encore de compte ?"
+              [link]="true"></p-button>
+  </div>
+</div>
