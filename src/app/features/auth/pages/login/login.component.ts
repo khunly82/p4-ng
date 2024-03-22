@@ -47,9 +47,9 @@ export class LoginComponent {
     }
     this.isLoading = true;
     this.authService.login(this.form.value).subscribe({
-      next: ({username}) => {
+      next: async ({username}) => {
         this.messageService.add({severity: 'info', summary: `Welcome ${username}`});
-        this.router.navigate(['/game']);
+        await this.router.navigate(['/game']);
       },
       error: (error) => {
         this.messageService.add({severity: 'error', summary: error.error});

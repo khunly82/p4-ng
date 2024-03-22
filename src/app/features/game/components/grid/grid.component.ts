@@ -14,7 +14,7 @@ import {CommonModule} from "@angular/common";
 })
 export class GridComponent {
   @Input()
-  game: GameModel|null|undefined;
+  game: GameModel|undefined;
 
   constructor(private readonly gameService: GameService) {
   }

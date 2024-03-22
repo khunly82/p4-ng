@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, Output, Signal} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {Store} from "@ngrx/store";
-import {Session} from "../../../../features/auth/state/session.state";
+import {SessionState} from "../../../auth/state/session.state";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {StatusComponent} from "../../../../shared/components/status/status.component";
 import {CommonModule} from "@angular/common";
+import {PlayerModel} from "../../models/player.model";
 
 @Component({
   selector: 'app-game-row-player, [appGameRowPlayer]',
@@ -19,7 +20,7 @@ import {CommonModule} from "@angular/common";
 })
 export class GameRowPlayerComponent {
   @Input()
-  player!: { id: number | null, name: string | null, status?: 'connected'|'disconnected' };
+  player!: PlayerModel;
   @Input()
   versusAI!: boolean;
   @Input()
@@ -30,7 +31,7 @@ export class GameRowPlayerComponent {
 
   currentPlayerId: Signal<number | null | undefined>
 
-  constructor(private readonly store: Store<{ session: Session }>) {
+  constructor(private readonly store: Store<{ session: SessionState }>) {
     this.currentPlayerId = toSignal(this.store.select(state => state.session.id))
   }
 

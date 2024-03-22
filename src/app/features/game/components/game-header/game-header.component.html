@@ -8,11 +8,12 @@
        [versusAI]="game.versusAI"
        [opponentPlayerId]="game.yellowPlayerId">
   </div>
-  <div class="flex flex-row-reverse" appGameRowPlayer
+  <div appGameRowPlayer
+       class="flex flex-row-reverse"
        [player]="{
          id: game.yellowPlayerId,
          name: game.yellowPlayerName,
-         status: game.yellowPlayerConnected ? 'connected' : 'disconnected'
+         status: game.yellowPlayerConnected ? 'connected' : 'disconnected',
        }"
        [versusAI]="game.versusAI"
        [opponentPlayerId]="game.redPlayerId">

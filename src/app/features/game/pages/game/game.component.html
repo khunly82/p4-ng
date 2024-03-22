@@ -1,7 +1,11 @@
 <div id="games">
-  <p-button class="my-4" [disabled]="!!game() || status() !== 'connected'" label="Créer une partie" (onClick)="createGameOpen = true"></p-button>
+  <p-button class="my-4"
+            [disabled]="!!game() || status() !== 'connected'"
+            label="Créer une partie"
+            (onClick)="createGameOpen = true"></p-button>
   <p-dialog [(visible)]="createGameOpen"
-            [style]="{width: '50vw'}" [breakpoints]="{ '920px': '70vw' }"
+            [style]="{width: '50vw'}"
+            [breakpoints]="{ '920px': '70vw' }"
             [modal]="true"
             header="Créer une partie"
   >
@@ -10,9 +14,9 @@
   <p-table [value]="games() ?? []">
     <ng-template pTemplate="header">
       <tr>
-        <th>Rouge</th>
+        <th>Red</th>
         <th class="text-center">VS</th>
-        <th class="text-right">Jaune</th>
+        <th class="text-right">Yellow</th>
       </tr>
     </ng-template>
     <ng-template let-game pTemplate="body">

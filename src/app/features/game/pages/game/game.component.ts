@@ -15,6 +15,7 @@ import {GamesState} from "../../state/game.state";
 import {ConfirmationService} from "primeng/api";
 import {GameService} from "../../services/game.service";
 import {GameHeaderComponent} from "../../components/game-header/game-header.component";
+import {GameStatus} from "../../types/game-status.type";
 
 @Component({
   standalone: true,
@@ -31,19 +32,19 @@ import {GameHeaderComponent} from "../../components/game-header/game-header.comp
     GameHeaderComponent,
   ],
   templateUrl: './game.component.html',
-  styleUrl: './game.component.scss'
+  styleUrl: './game.component.scss',
 })
 export class GameComponent {
 
   games: Signal<GameModel[] | undefined>;
-  game: Signal<GameModel | null | undefined>;
-  status: Signal<'connected'|'connecting'|'disconnected' | undefined>;
+  game: Signal<GameModel | undefined>;
+  status: Signal<GameStatus | undefined>;
 
   createGameOpen: boolean = false;
 
   constructor(
     private readonly store: Store<{ games: GamesState }>,
-    private readonly confimationService: ConfirmationService,
+    private readonly confirmationService: ConfirmationService,
     private readonly gameService:GameService,
   ) {
     this.games = toSignal(this.store.select(state => state.games.games));
@@ -51,33 +52,33 @@ export class GameComponent {
     this.status = toSignal(this.store.select(state => state.games.status));
 
     effect(() => {
-      const game: GameModel|null|undefined = this.game()
+      const game: GameModel|undefined = this.game()
       if(!game) {
         return;
       }
       if(game.winner !== null) {
-        this.confimationService.confirm({
-          header: 'La partie est terminée!',
-          message: 'Voulez-vous quitter la partie ?',
-          accept: () => {
-            this.gameService.leave(game.id)
+        this.confirmationService.confirm({
+          header: 'This game is complete!',
+          message: 'Do you want to leave this game ?',
+          accept: async () => {
+            await this.gameService.leave(game.id)
           }
         })
       }
     });
   }
 
-  leave() {
-    const game: GameModel|null|undefined = this.game();
+  async leave() {
+    const game: GameModel|undefined = this.game();
     if(!game) {
       return;
     }
     if(game.winner !== null) {
-      this.gameService.leave(game.id)
+      await this.gameService.leave(game.id)
     } else {
-      this.confimationService.confirm({
-        header: 'La partie n\'est pas terminée!',
-        message: 'Voulez-vous quitter la partie ?',
+      this.confirmationService.confirm({
+        header: 'This game is not complete!',
+        message: 'Do you want to leave anyway ?',
         accept: () => {
           this.gameService.leave(game.id);
         }

@@ -22,8 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideHttpClient(),
-    MessageService,
-    ConfirmationService,
     provideStore({
       session: sessionReducer,
       games: gamesReducer,
@@ -33,6 +31,8 @@ export const appConfig: ApplicationConfig = {
         strictStateImmutability: false,
         strictActionImmutability: false,
       }
-    })
+    }),
+    MessageService,
+    ConfirmationService,
   ]
 };

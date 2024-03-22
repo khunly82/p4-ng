@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {TooltipModule} from "primeng/tooltip";
+import {GameStatus} from "../../../features/game/types/game-status.type";
 
 @Component({
   selector: 'app-status',
@@ -14,5 +15,5 @@ import {TooltipModule} from "primeng/tooltip";
 })
 export class StatusComponent {
   @Input()
-  status: 'connected'|'connecting'|'disconnected'|undefined = 'disconnected';
+  status: GameStatus | undefined = 'disconnected';
 }

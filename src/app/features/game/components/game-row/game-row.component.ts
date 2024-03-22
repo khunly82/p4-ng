@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {GameModel} from "../../../../features/game/models/game.model";
+import {GameModel} from "../../models/game.model";
 import {ButtonModule} from "primeng/button";
 import {GameRowPlayerComponent} from "../game-row-player/game-row-player.component";
-import {GameService} from "../../../../features/game/services/game.service";
+import {GameService} from "../../services/game.service";
 
 @Component({
   selector: '[appGameRow]',
@@ -16,7 +16,7 @@ import {GameService} from "../../../../features/game/services/game.service";
 })
 export class GameRowComponent {
   @Input()
-  game!: GameModel|null|undefined;
+  game!: GameModel|undefined;
 
   constructor(private readonly gameService: GameService) {
   }

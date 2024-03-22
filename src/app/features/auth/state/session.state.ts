@@ -1,18 +1,14 @@
 import {createAction, createReducer, on, props} from "@ngrx/store";
 
-export interface Session {
-  token: string | null;
-  username: string | null;
-  id: number | null;
+export interface SessionState {
+  token?: string;
+  username?: string;
+  id?: number;
 }
 
-const initialState: Session = {
-  token: null,
-  username: null,
-  id: null,
-}
+const initialState: SessionState = { }
 
-export const sessionStart = createAction('session/start', props<{ session: Session }>());
+export const sessionStart = createAction('session/start', props<{ session: SessionState }>());
 export const sessionStop = createAction('session/stop');
 
 export const sessionReducer = createReducer(

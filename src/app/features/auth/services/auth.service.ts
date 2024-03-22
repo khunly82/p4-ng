@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Session, sessionStart} from '../state/session.state';
+import {SessionState, sessionStart} from '../state/session.state';
 import {tap} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {environment} from '../../../../environments/environment';
@@ -18,13 +18,13 @@ export class AuthService {
 
 
   login(form: any) {
-    return this.httpClient.post<Session>(environment.apiUrl + '/login', form)
+    return this.httpClient.post<SessionState>(environment.apiUrl + '/login', form)
       .pipe(
         tap(session => this.store.dispatch(sessionStart({session})))
       );
   }
 
   register(form: any) {
-    return this.httpClient.post<Session>(environment.apiUrl + '/register', form);
+    return this.httpClient.post<SessionState>(environment.apiUrl + '/register', form);
   }
 }

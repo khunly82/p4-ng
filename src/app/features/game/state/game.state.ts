@@ -1,24 +1,24 @@
 import {createAction, createReducer, on, props} from "@ngrx/store";
 import {GameModel} from "../models/game.model";
 import {GameMoveModel} from "../models/game-move.model";
+import {GameStatus} from "../types/game-status.type";
 
 export interface GamesState {
   games: GameModel[],
-  currentGame: GameModel | null,
-  status: 'connected'|'connecting'|'disconnected',
+  currentGame?: GameModel,
+  status?: GameStatus,
 }
 
 const initialState: GamesState = {
   games: [],
-  currentGame: null,
   status: 'disconnected',
 }
 
 export const loadGames = createAction('games/load', props<{ games: GameModel[] }>());
-export const loadGame = createAction('games/loadGame', props<{ game: GameModel | null }>());
+export const loadGame = createAction('games/loadGame', props<{ game: GameModel|undefined }>());
 export const opponentLeave = createAction('games/opponentLeave', props<{ opponentId: number }>());
 export const gameMove = createAction('games/gameMove', props<{ move: GameMoveModel }>());
-export const changeStatus = createAction('games/status', props<{ status: 'connected'|'connecting'|'disconnected' }>());
+export const changeStatus = createAction('games/status', props<{ status: GameStatus }>());
 
 export const gamesReducer = createReducer(
   initialState,

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {GameModel} from "../models/game.model";
 import {Store} from "@ngrx/store";
-import {Session} from "../../auth/state/session.state";
+import {SessionState} from "../../auth/state/session.state";
 import {HubService, Subscriptions} from '../../../core/services/hub.service';
 import {GameMoveModel} from '../models/game-move.model';
 import {changeStatus, gameMove, loadGame, loadGames} from '../state/game.state';
@@ -14,7 +14,7 @@ import {MessageService} from "primeng/api";
 export class GameService extends HubService {
 
   constructor(
-    private readonly store: Store<{ session: Session }>,
+    private readonly store: Store<{ session: SessionState }>,
     private readonly messageService: MessageService,
   ) {
     super(environment.wsUrl + '/game');
@@ -38,11 +38,11 @@ export class GameService extends HubService {
     await this.connection?.send('leaveGame', {gameId})
   }
 
-  protected override onReconnecting(error?: Error | undefined): void {
+  protected override onReconnecting(): void {
     this.store.dispatch(changeStatus({status: 'connecting'}));
   }
 
-  protected override onReconnected(connectionId?: string | undefined): void {
+  protected override onReconnected(): void {
     this.store.dispatch(changeStatus({status: 'connected'}));
   }
 
@@ -57,7 +57,7 @@ export class GameService extends HubService {
     }
   }
 
-  private onSessionChange = async (session: Session) => {
+  private onSessionChange = async (session: SessionState) => {
     if (session.token) {
       await this.createConnection({
         accessTokenFactory: () => <string>session.token
@@ -66,7 +66,7 @@ export class GameService extends HubService {
     } else {
       await this.stopConnection();
       this.store.dispatch(loadGames({games: []}));
-      this.store.dispatch(loadGame({game: null}));
+      this.store.dispatch(loadGame({game: undefined}));
       this.store.dispatch(changeStatus({ status: 'disconnected' }));
     }
   }
@@ -83,21 +83,21 @@ export class GameService extends HubService {
     this.store.dispatch(gameMove({move}));
   }
 
-  private onOpponentLeave = (opponentId: number) => {
+  private onOpponentLeave = () => {
     this.messageService.add({
       severity: 'warn',
-      summary: 'Votre adversaire a quitté la partie',
+      summary: 'Your opponent has leaved',
     });
   }
 
   private onLeave = () => {
-    this.store.dispatch(loadGame({game: null}));
+    this.store.dispatch(loadGame({game: undefined}));
   }
 
   private onError = (message: string) => {
     this.messageService.add({
       severity: 'error',
-      summary: 'Erreur',
+      summary: 'Error',
       detail: message
     })
   }
