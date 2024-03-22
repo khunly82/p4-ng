@@ -1,0 +1,21 @@
+@if(game) {
+  <div appGameRowPlayer
+       [player]="{
+         id: game.redPlayerId,
+         name: game.redPlayerName,
+         status: game.redPlayerConnected ? 'connected' : 'disconnected',
+       }"
+       [versusAI]="game.versusAI"
+       [opponentPlayerId]="game.yellowPlayerId">
+  </div>
+  <div class="flex flex-row-reverse" appGameRowPlayer
+       [player]="{
+         id: game.yellowPlayerId,
+         name: game.yellowPlayerName,
+         status: game.yellowPlayerConnected ? 'connected' : 'disconnected'
+       }"
+       [versusAI]="game.versusAI"
+       [opponentPlayerId]="game.redPlayerId">
+  </div>
+}
+
