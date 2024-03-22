@@ -9,6 +9,7 @@ import {GamesState} from "./features/game/state/game.state";
 import {TieredMenuModule} from "primeng/tieredmenu";
 import {MenuItem} from "primeng/api";
 import {ButtonModule} from "primeng/button";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import {ButtonModule} from "primeng/button";
     StatusComponent,
     TieredMenuModule,
     ButtonModule,
+    ConfirmDialogModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

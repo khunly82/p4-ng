@@ -1,7 +1,8 @@
 <div id="games">
-  <p-button class="my-4" [disabled]="!!game()" label="Créer une partie" (onClick)="createGameOpen = true"></p-button>
+  <p-button class="my-4" [disabled]="!!game() || status() !== 'connected'" label="Créer une partie" (onClick)="createGameOpen = true"></p-button>
   <p-dialog [(visible)]="createGameOpen"
             [style]="{width: '50vw'}" [breakpoints]="{ '920px': '70vw' }"
+            [modal]="true"
             header="Créer une partie"
   >
     <app-create-game-form (onClose)="createGameOpen = false"></app-create-game-form>
@@ -21,7 +22,13 @@
 </div>
 <div id="currentGame">
   @if (game()) {
-    <div class="game-header mb-3" appGameRow [game]="game()"></div>
+    <div class="text-right mb-3">
+      <p-button severity="danger"
+                size="small"
+                label="Quitter la partie"
+                (onClick)="leave()"></p-button>
+    </div>
+    <app-game-header class="mb-3" [game]="game()"></app-game-header>
     <app-grid [game]="game()"></app-grid>
   }
 </div>

@@ -1,5 +1,6 @@
 @if (player.id) {
-  {{ player.name }}
+  <span>{{ player.name }}</span>
+  <app-status class="mx-3" *ngIf="player.status" [status]="player.status"></app-status>
 } @else if (versusAI) {
   Ordi
 } @else if (opponentPlayerId === currentPlayerId()) {

@@ -5,7 +5,8 @@ import {Store} from "@ngrx/store";
 import {Session} from "../../auth/state/session.state";
 import {HubService, Subscriptions} from '../../../core/services/hub.service';
 import {GameMoveModel} from '../models/game-move.model';
-import {changeStatus, gameMove, leaveGame, loadGame, loadGames} from '../state/game.state';
+import {changeStatus, gameMove, loadGame, loadGames} from '../state/game.state';
+import {MessageService} from "primeng/api";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ import {changeStatus, gameMove, leaveGame, loadGame, loadGames} from '../state/g
 export class GameService extends HubService {
 
   constructor(
-    private readonly store: Store<{ session: Session }>
+    private readonly store: Store<{ session: Session }>,
+    private readonly messageService: MessageService,
   ) {
     super(environment.wsUrl + '/game');
     this.store.select(state => state.session)
@@ -33,7 +35,7 @@ export class GameService extends HubService {
   }
 
   async leave(gameId: number) {
-    await this.connection?.send('leave', {gameId})
+    await this.connection?.send('leaveGame', {gameId})
   }
 
   protected override onReconnecting(error?: Error | undefined): void {
@@ -49,7 +51,7 @@ export class GameService extends HubService {
       currentGame: this.onCurrentGame,
       allGames: this.onAllGames,
       move: this.onMove,
-      gameEnd: this.onGameEnd,
+      error: this.onError,
       opponentLeave: this.onOpponentLeave,
       leave: this.onLeave,
     }
@@ -64,7 +66,7 @@ export class GameService extends HubService {
     } else {
       await this.stopConnection();
       this.store.dispatch(loadGames({games: []}));
-      this.store.dispatch(leaveGame());
+      this.store.dispatch(loadGame({game: null}));
       this.store.dispatch(changeStatus({ status: 'disconnected' }));
     }
   }
@@ -78,18 +80,25 @@ export class GameService extends HubService {
   }
 
   private onMove = (move: GameMoveModel) => {
-    this.store.dispatch(gameMove({move}))
+    this.store.dispatch(gameMove({move}));
   }
 
-  private onOpponentLeave = () => {
-
+  private onOpponentLeave = (opponentId: number) => {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Votre adversaire a quitté la partie',
+    });
   }
 
   private onLeave = () => {
-
+    this.store.dispatch(loadGame({game: null}));
   }
 
-  private onGameEnd = () => {
-    alert('La partie est finie')
+  private onError = (message: string) => {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erreur',
+      detail: message
+    })
   }
 }

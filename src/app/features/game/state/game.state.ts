@@ -16,7 +16,7 @@ const initialState: GamesState = {
 
 export const loadGames = createAction('games/load', props<{ games: GameModel[] }>());
 export const loadGame = createAction('games/loadGame', props<{ game: GameModel | null }>());
-export const leaveGame = createAction('games/leaveGame');
+export const opponentLeave = createAction('games/opponentLeave', props<{ opponentId: number }>());
 export const gameMove = createAction('games/gameMove', props<{ move: GameMoveModel }>());
 export const changeStatus = createAction('games/status', props<{ status: 'connected'|'connecting'|'disconnected' }>());
 
@@ -32,7 +32,22 @@ export const gamesReducer = createReducer(
     if (state.currentGame?.grid) {
       state.currentGame.grid[move.x][move.y] = move.color;
     }
-    return {...state};
+    return {...state, currentGame: {...<GameModel>state.currentGame}};
+  }),
+  on(opponentLeave, (state, {opponentId}) => {
+    if(state.currentGame) {
+      if(state.currentGame.redPlayerId === opponentId) {
+        state.currentGame.redPlayerId = null;
+        state.currentGame.redPlayerName = null;
+        state.currentGame.redPlayerConnected = null;
+      }
+      if(state.currentGame.yellowPlayerId === opponentId) {
+        state.currentGame.yellowPlayerId = null;
+        state.currentGame.yellowPlayerName = null;
+        state.currentGame.yellowPlayerConnected = null;
+      }
+    }
+    return {...state, currentGame: {...<GameModel>state.currentGame}};
   }),
   on(changeStatus, (state, {status}) => {
     return {...state, status}

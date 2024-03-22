@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {GameModel} from "../../../../features/game/models/game.model";
-import {GameService} from "../../../../features/game/services/game.service";
+import {GameModel} from "../../models/game.model";
+import {GameService} from "../../services/game.service";
 import {CommonModule} from "@angular/common";
 
 @Component({
@@ -19,7 +19,10 @@ export class GridComponent {
   constructor(private readonly gameService: GameService) {
   }
   async play(x: number) {
-    if (!this.game) {
+    if (!this.game?.grid) {
+      return;
+    }
+    if(!this.game.grid[x].includes(0)) {
       return;
     }
     await this.gameService.play(this.game.id, x)
