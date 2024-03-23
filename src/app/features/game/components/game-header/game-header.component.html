@@ -3,17 +3,20 @@
        [player]="{
          id: game.redPlayerId,
          name: game.redPlayerName,
-         status: game.redPlayerConnected ? 'connected' : 'disconnected',
+         status: game.redPlayerStatus,
        }"
        [versusAI]="game.versusAI"
        [opponentPlayerId]="game.yellowPlayerId">
+  </div>
+  <div class="flex justify-content-center">
+    {{gameResult}}
   </div>
   <div appGameRowPlayer
        class="flex flex-row-reverse"
        [player]="{
          id: game.yellowPlayerId,
          name: game.yellowPlayerName,
-         status: game.yellowPlayerConnected ? 'connected' : 'disconnected',
+         status: game.yellowPlayerStatus,
        }"
        [versusAI]="game.versusAI"
        [opponentPlayerId]="game.redPlayerId">

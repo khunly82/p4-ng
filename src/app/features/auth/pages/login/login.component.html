@@ -10,12 +10,12 @@
     <div class="my-4">
       <p-floatLabel>
         <input pPassword class="w-full" formControlName="password">
-        <label>Mot de passe</label>
+        <label>Password</label>
       </p-floatLabel>
     </div>
     <div class="my-4 flex justify-content-end">
       <p-button type="submit"
-                label="Envoyer"
+                label="Send"
                 icon="pi pi-send"
                 iconPos="right"
                 [disabled]="form.invalid || isLoading"
@@ -25,7 +25,7 @@
   </form>
   <div class="flex justify-content-center">
     <p-button routerLink="/register"
-              label="Pas encore de compte ?"
+              label="Not registered ?"
               [link]="true"></p-button>
   </div>
 </div>

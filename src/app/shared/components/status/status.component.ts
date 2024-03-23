@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {TooltipModule} from "primeng/tooltip";
-import {GameStatus} from "../../../features/game/types/game-status.type";
+import {PlayerStatus} from "../../../features/game/@types/player-status";
 
 @Component({
   selector: 'app-status',
@@ -15,5 +15,5 @@ import {GameStatus} from "../../../features/game/types/game-status.type";
 })
 export class StatusComponent {
   @Input()
-  status: GameStatus | undefined = 'disconnected';
+  status: PlayerStatus | undefined = 'disconnected';
 }

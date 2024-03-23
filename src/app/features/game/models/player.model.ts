@@ -1,7 +1,7 @@
-import {GameStatus} from "../types/game-status.type";
+import {PlayerStatus} from "../@types/player-status";
 
 export interface PlayerModel {
   id: number|null;
   name: string|null;
-  status?: GameStatus|null;
+  status?: PlayerStatus|null;
 }

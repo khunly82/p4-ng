@@ -26,14 +26,23 @@
 </div>
 <div id="currentGame">
   @if (game()) {
-    <div class="text-right mb-3">
+    <div class="flex justify-content-end gap-3 mb-3">
+      @if(!game()?.winner && (game()?.yellowPlayerStatus === 'connecting' || game()?.redPlayerStatus === 'connecting')) {
+        <p-button severity="info"
+                  size="small"
+                  label="Claim victory"
+                  (onClick)="claimVictory()"></p-button>
+      }
       <p-button severity="danger"
                 size="small"
-                label="Quitter la partie"
+                label="Leave the game"
                 (onClick)="leave()"></p-button>
     </div>
-    <app-game-header class="mb-3" [game]="game()"></app-game-header>
+    <app-game-header class="mb-3" [game]="game()" [gameResult]="gameResult"></app-game-header>
     <app-grid [game]="game()"></app-grid>
+    <p-confirmDialog key="LEAVE"></p-confirmDialog>
+    <p-confirmDialog key="GAME_COMPLETE"></p-confirmDialog>
+    <p-confirmDialog key="CLAIM_VICTORY"></p-confirmDialog>
   }
 </div>
 

@@ -4,8 +4,7 @@ import {GameModel} from "../models/game.model";
 import {Store} from "@ngrx/store";
 import {SessionState} from "../../auth/state/session.state";
 import {HubService, Subscriptions} from '../../../core/services/hub.service';
-import {GameMoveModel} from '../models/game-move.model';
-import {changeStatus, gameMove, loadGame, loadGames} from '../state/game.state';
+import {changeStatus, loadGame, loadGames} from '../state/game.state';
 import {MessageService} from "primeng/api";
 
 @Injectable({
@@ -35,7 +34,12 @@ export class GameService extends HubService {
   }
 
   async leave(gameId: number) {
-    await this.connection?.send('leaveGame', {gameId})
+    this.store.dispatch(loadGame({game: undefined}));
+    await this.connection?.send('leaveGame', {gameId});
+  }
+
+  async claimVictory(gameId: number) {
+    await this.connection?.send('claimVictory', {gameId});
   }
 
   protected override onReconnecting(): void {
@@ -50,10 +54,7 @@ export class GameService extends HubService {
     return {
       currentGame: this.onCurrentGame,
       allGames: this.onAllGames,
-      move: this.onMove,
       error: this.onError,
-      opponentLeave: this.onOpponentLeave,
-      leave: this.onLeave,
     }
   }
 
@@ -77,21 +78,6 @@ export class GameService extends HubService {
 
   private onAllGames = (games: GameModel[]) => {
     this.store.dispatch(loadGames({games}))
-  }
-
-  private onMove = (move: GameMoveModel) => {
-    this.store.dispatch(gameMove({move}));
-  }
-
-  private onOpponentLeave = () => {
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Your opponent has leaved',
-    });
-  }
-
-  private onLeave = () => {
-    this.store.dispatch(loadGame({game: undefined}));
   }
 
   private onError = (message: string) => {

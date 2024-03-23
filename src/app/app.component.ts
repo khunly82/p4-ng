@@ -10,7 +10,7 @@ import {TieredMenuModule} from "primeng/tieredmenu";
 import {MenuItem} from "primeng/api";
 import {ButtonModule} from "primeng/button";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
-import {GameStatus} from "./features/game/types/game-status.type";
+import {PlayerStatus} from "./features/game/@types/player-status";
 
 @Component({
   selector: 'app-root',
@@ -29,7 +29,7 @@ import {GameStatus} from "./features/game/types/game-status.type";
 export class AppComponent {
 
   session: Signal<SessionState|undefined>
-  status: Signal<GameStatus|undefined>
+  status: Signal<PlayerStatus|undefined>
 
   userMenuItems: MenuItem[] = [
     { separator: true },
