@@ -1,4 +1,4 @@
-import {Component, Input, Signal} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {GameRowPlayerComponent} from "../game-row-player/game-row-player.component";
 import {GameModel} from "../../models/game.model";
 
