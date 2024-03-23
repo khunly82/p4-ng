@@ -44,10 +44,20 @@ export class GameService extends HubService {
 
   protected override onReconnecting(): void {
     this.store.dispatch(changeStatus({status: 'connecting'}));
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Disconnected to server'
+    })
   }
 
   protected override onReconnected(): void {
     this.store.dispatch(changeStatus({status: 'connected'}));
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
+      detail: 'Reconnected to server'
+    })
   }
 
   protected override get subscriptions(): Subscriptions {
@@ -55,6 +65,7 @@ export class GameService extends HubService {
       currentGame: this.onCurrentGame,
       allGames: this.onAllGames,
       error: this.onError,
+      info: this.onInfo,
     }
   }
 
@@ -84,6 +95,14 @@ export class GameService extends HubService {
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
+      detail: message
+    })
+  }
+
+  private onInfo = (message: string) => {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
       detail: message
     })
   }
