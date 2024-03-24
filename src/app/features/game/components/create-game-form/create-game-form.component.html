@@ -2,18 +2,24 @@
   <div class="py-4">
     <p-radioButton formControlName="color"
                    [value]="1"
-                   label="Rouge"
+                   label="Red"
                    class="mr-4"
     ></p-radioButton>
     <p-radioButton formControlName="color"
                    [value]="-1"
-                   label="Jaune"
+                   label="Yellow"
     ></p-radioButton>
   </div>
   <div class="py-4">
-    <p-checkbox [binary]="true" label="Jouer contre l'ordi" formControlName="versusAI"></p-checkbox>
+    <p-checkbox [binary]="true" label="Play against AI" formControlName="versusAI"></p-checkbox>
+  </div>
+  <div class="py-4">
+    <p>Difficulty: {{aiDepthControl.value}}</p>
+    <p-slider [style]="{ maxWidth: '250px' }"
+              [min]="1"
+              [max]="5" formControlName="aiDepth"></p-slider>
   </div>
   <div class="py-4 flex justify-content-end">
-    <p-button type="submit" label="Créer"></p-button>
+    <p-button type="submit" label="Create"></p-button>
   </div>
 </form>

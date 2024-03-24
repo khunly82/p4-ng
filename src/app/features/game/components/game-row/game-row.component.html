@@ -6,6 +6,7 @@
                          }"
                          (onClick)="joinGame()"
                          [versusAI]="game.versusAI"
+                         [aiDepth]="game.aiDepth"
                          [opponentPlayerId]="game.yellowPlayerId"></app-game-row-player>
   </td>
   <td class="text-center"></td>
@@ -16,6 +17,8 @@
                          }"
                          (onClick)="joinGame()"
                          [versusAI]="game.versusAI"
+                         [aiDepth]="game.aiDepth"
                          [opponentPlayerId]="game.redPlayerId"></app-game-row-player>
   </td>
 }
+

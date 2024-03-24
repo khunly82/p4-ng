@@ -1,10 +1,10 @@
 @if (player.id) {
-  <span>{{ player.name }}</span>
-  <app-status class="mx-3" *ngIf="player.status" [status]="player.status"></app-status>
+  {{ player.name }}
 } @else if (versusAI) {
-  Computer
+  Computer {{ aiDepth }}
 } @else if (opponentPlayerId === currentPlayerId()) {
   Waiting for opponent
 } @else {
   <p-button label="Rejoindre" (onClick)="click()"></p-button>
 }
+<app-status class="mx-3" *ngIf="player.status" [status]="player.status"></app-status>

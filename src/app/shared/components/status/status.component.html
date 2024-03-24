@@ -1,5 +1,6 @@
 <i class="pi pi-circle-fill" [ngClass]="{
   'green': status === 'connected',
   'pi-spin pi-spinner': status === 'connecting',
-  'red': status === 'disconnected'
+  'red': status === 'disconnected',
+  'pi-spin pi-cog': status === 'computing'
 }" [pTooltip]="status" tooltipPosition="left"></i>

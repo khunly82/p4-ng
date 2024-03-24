@@ -24,6 +24,8 @@ export class GameRowPlayerComponent {
   @Input()
   versusAI!: boolean;
   @Input()
+  aiDepth!: number|null;
+  @Input()
   opponentPlayerId!: number | null;
 
   @Output()

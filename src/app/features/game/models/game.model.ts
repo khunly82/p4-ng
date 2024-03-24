@@ -9,6 +9,7 @@ export interface  GameModel {
   redPlayerStatus: PlayerStatus|null;
   yellowPlayerStatus: PlayerStatus|null;
   versusAI: boolean;
+  aiDepth: number|null;
   grid?: number[][];
   winner: number|null;
 }

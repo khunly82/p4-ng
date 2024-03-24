@@ -6,19 +6,21 @@
          status: game.redPlayerStatus,
        }"
        [versusAI]="game.versusAI"
+       [aiDepth]="game.aiDepth"
        [opponentPlayerId]="game.yellowPlayerId">
   </div>
-  <div class="flex justify-content-center">
+  <div class="justify-content-center">
     {{gameResult}}
   </div>
   <div appGameRowPlayer
-       class="flex flex-row-reverse"
+       class="flex-row-reverse"
        [player]="{
          id: game.yellowPlayerId,
          name: game.yellowPlayerName,
          status: game.yellowPlayerStatus,
        }"
        [versusAI]="game.versusAI"
+       [aiDepth]="game.aiDepth"
        [opponentPlayerId]="game.redPlayerId">
   </div>
 }
